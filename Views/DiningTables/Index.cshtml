@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FIT5032_Project.Models.DiningTable>
+
+@{
+    ViewBag.Title = "SelectTables";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Table List</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("adm"))
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TableId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HalfPriceDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TableId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HalfPriceDate)
+            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("adm"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TableId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.TableId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.TableId })
+                    </td>
+                }
+            }
+
+        </tr>
+    }
+
+</table>
